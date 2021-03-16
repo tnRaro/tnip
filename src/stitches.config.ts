@@ -40,7 +40,7 @@ global({
     padding: 0,
     margin: 0,
     fontFamily: "$sans",
-    height: "100vh",
+    height: "100%",
   },
   "@font-face": [
     {

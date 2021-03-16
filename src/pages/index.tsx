@@ -22,7 +22,7 @@ const Page: VoidFunctionComponent<PageProps> = (props) => {
   return (
     <div className={flex({
       css: {
-        height: "100vh",
+        height: "100%",
         alignItems: "center",
         justifyContent: "center"
       }
