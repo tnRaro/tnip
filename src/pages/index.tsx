@@ -1,14 +1,18 @@
-import { useEffect, useState, VoidFunctionComponent } from 'react';
+import { useEffect, useMemo, useState, VoidFunctionComponent } from 'react';
 import { CopyIcon } from '../components/CopyIcon';
 import { useClipboard } from '../hooks/useClipboard';
-import { css } from '../stitches.config';
 import { button } from '../styles/button';
 import { flex } from '../styles/flex';
 import { input } from '../styles/input';
 type PageProps = {}
 const Page: VoidFunctionComponent<PageProps> = (props) => {
-  const [copied, copy] = useClipboard();
+  const [copied, copy, error] = useClipboard();
   const [ip, setIp] = useState<string>("...");
+  const [ipFetchError, setIpFetchError] = useState<any>(null);
+  const errors = useMemo(
+    () => [error, ipFetchError].filter(e => e),
+    [error, ipFetchError]
+  );
   useEffect(() => {
     fetch("/api/ip")
       .then((res) => res.json())
@@ -16,7 +20,7 @@ const Page: VoidFunctionComponent<PageProps> = (props) => {
         setIp(ip);
       })
       .catch((error) => {
-        console.error(error);
+        setIpFetchError(error);
       });
   }, []);
   return (
@@ -30,43 +34,68 @@ const Page: VoidFunctionComponent<PageProps> = (props) => {
       <div className={flex({
         css: {
           width: 320,
-          alignItems: "center",
+          flexDirection: "column"
         }
       })}>
-        <input
-          className={input({
-            css: {
-              width: 0,
-              flex: "1 1",
-              fontWeight: 700,
-              fontSize: 20,
-              textOverflow: "ellipsis"
+        <div className={flex({
+          css: {
+            alignItems: "center",
+            when: {
+              "@media (max-width: 320px)": {
+                flexDirection: "column"
+              }
             }
+          },
+        })}>
+          <input
+            className={input({
+              css: {
+                width: "100%",
+                flex: "1 1",
+                fontWeight: 700,
+                fontSize: 20,
+                textOverflow: "ellipsis"
+              }
+            })}
+            value={ip}
+            onChange={() => { }}
+            onFocus={(e) => {
+              const target = e.target;
+              target.select();
+            }}
+          />
+          <button
+            className={button({
+              css: {
+                width: 102.89,
+                justifyContent: "flex-start"
+              },
+              color: "accent"
+            })}
+            onClick={() => {
+              copy(ip);
+            }}
+          >
+            <CopyIcon />
+            <div className={flex({ css: { marginLeft: 8 } })}>
+              {copied ? "복사됨" : "복사하기"}
+            </div>
+          </button>
+        </div>
+        <div className={flex({
+          css: {
+            color: "$error",
+            flexDirection: "column"
+          }
+        })}>
+          {errors.map((error) => {
+            return (
+              <div className={flex({})}>
+                {error?.toString()}
+              </div>
+            );
           })}
-          value={ip}
-          onChange={() => { }}
-          onFocus={(e) => {
-            const target = e.target;
-            target.select();
-          }}
-        />
-        <button
-          className={button({
-            css: {
-              width: 102.89,
-              justifyContent: "flex-start"
-            },
-            color: "accent"
-          })}
-          onClick={() => {
-            copy(ip)
-          }}
-        >
-          <CopyIcon />
-          <div className={flex({ css: { marginLeft: 8 } })}>
-            {copied ? "복사됨" : "복사하기"}
-          </div>
-        </button>
+        </div>
       </div>
     </div>
   );

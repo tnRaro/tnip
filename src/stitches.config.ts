@@ -24,6 +24,8 @@ export const { css, styled, global } = createCss({
       accent700: "$blue700",
       accent800: "$blue800",
       accent900: "$blue900",
+      
+      error: "crimson"
     },
     fonts: {
       sans: "-apple-system, BlinkMacSystemFont, Spoqa Han Sans Neo, sans-serif"

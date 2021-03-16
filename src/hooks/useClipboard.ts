@@ -2,6 +2,7 @@ import { useCallback, useState } from "react";
 
 export const useClipboard = () => {
   const [copied, setCopied] = useState(false);
+  const [error, setError] = useState<any>(null);
   let timerId: NodeJS.Timeout;
   const copy = useCallback(async (text: string) => {
     clearTimeout(timerId);
@@ -10,8 +11,8 @@ export const useClipboard = () => {
       setCopied(true);
       timerId = setTimeout(() => { setCopied(false) }, 3000);
     } catch (e) {
-      console.log(e);
+      setError(e);
     }
   }, []);
-  return [copied, copy] as [boolean, (text: string) => Promise<void>];
+  return [copied, copy, error] as [boolean, (text: string) => Promise<void>, any];
 }
