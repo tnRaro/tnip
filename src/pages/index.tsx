@@ -58,6 +58,7 @@ const Page: VoidFunctionComponent<PageProps> = (props) => {
             flex: "1 1",
             fontWeight: 700,
             fontSize: 20,
+            textOverflow: "ellipsis"
           }}
           value={ip}
           onChange={() => { }}
