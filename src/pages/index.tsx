@@ -7,7 +7,7 @@ import { input } from '../styles/input';
 type PageProps = {}
 const Page: VoidFunctionComponent<PageProps> = (props) => {
   const [copied, copy, error] = useClipboard();
-  const [ip, setIp] = useState<string>("...");
+  const [ip, setIp] = useState<string>(null);
   const [ipFetchError, setIpFetchError] = useState<any>(null);
   const errors = useMemo(
     () => [error, ipFetchError].filter(e => e),
@@ -57,7 +57,7 @@ const Page: VoidFunctionComponent<PageProps> = (props) => {
                 textOverflow: "ellipsis"
               }
             })}
-            value={ip}
+            value={ip ?? "..."}
             onChange={() => { }}
             onFocus={(e) => {
               const target = e.target;
@@ -75,6 +75,7 @@ const Page: VoidFunctionComponent<PageProps> = (props) => {
             onClick={() => {
               copy(ip);
             }}
+            disabled={copied || ip === null}
           >
             <CopyIcon />
             <div className={flex({ css: { marginLeft: 8 } })}>

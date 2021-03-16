@@ -3,6 +3,9 @@ import createCss from "@stitches/react";
 export const { css, styled, global } = createCss({
   theme: {
     colors: {
+      gray100: "gainsboro",
+      gray400: "gray",
+
       blue50: '#dcf3ff',
       blue100: '#aedaff',
       blue200: '#7cc0ff',

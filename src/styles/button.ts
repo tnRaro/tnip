@@ -16,16 +16,19 @@ export const button = css({
   WebkitUserSelect: "none",
   userSelect: "none",
   background: "white",
+  "&[disabled]": {
+    color: "$gray400"
+  },
   variants: {
     color: {
       accent: {
         color: "$accent400",
         padding: "8px 10px",
-        "&:hover,&:focus": {
+        "&:not([disabled]):hover,&:not([disabled]):focus": {
           transform: "translateY(-1px)",
           boxShadow: "0 2px 4px rgba(0 0 0 / 25%)"
         },
-        "&:active": {
+        "&:not([disabled]):active": {
           transform: "translateY(1px)",
           boxShadow: "0 1px 1px rgba(0 0 0 / 25%)"
         },
