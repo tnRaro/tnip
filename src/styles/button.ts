@@ -1,36 +1,34 @@
-import { styled } from "../stitches.config";
+import { css } from "../stitches.config";
+import { inputReset } from "./resets";
 
-export const Button = styled("button", {
-  appearance: "none",
+export const button = css({
+  ...inputReset,
   display: "flex",
-  boxSizing: "border-box",
-  border: "none",
   borderRadius: "4px",
-  fontSize: "inherit",
-  fontFamily: "inherit",
-  padding: 0,
-  margin: 0,
   alignItems: "center",
   justifyContent: "center",
-  background: "white",
   "& > svg": {
     width: "1em",
     height: "1em",
   },
-  transition: "all 300ms ease",
+  transition: "box-shadow 300ms, transform 300ms ease",
+  outline: "none",
+  WebkitUserSelect: "none",
+  userSelect: "none",
+  background: "white",
   variants: {
     color: {
       accent: {
         color: "$accent400",
         padding: "8px 10px",
-        "&:hover": {
+        "&:hover,&:focus": {
           transform: "translateY(-1px)",
           boxShadow: "0 2px 4px rgba(0 0 0 / 25%)"
         },
         "&:active": {
           transform: "translateY(1px)",
-          boxShadow: "0 2px 0px rgba(0 0 0 / 25%)"
-        }
+          boxShadow: "0 1px 1px rgba(0 0 0 / 25%)"
+        },
       }
     }
   }

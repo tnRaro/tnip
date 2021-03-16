@@ -1,15 +1,7 @@
-import { InternalCSS } from "@stitches/core";
 import { VoidFunctionComponent } from "react";
-import { styled } from "../stitches.config";
-const StyledSvg = styled("svg", {});
-type CopyIconProps = {
-  css?: InternalCSS
-};
-export const CopyIcon: VoidFunctionComponent<CopyIconProps> = (props) => {
-  const { css, ...rest } = props;
+export const CopyIcon: VoidFunctionComponent<{}> = () => {
   return (
-    <StyledSvg
-      css={css}
+    <svg
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
@@ -23,6 +15,6 @@ export const CopyIcon: VoidFunctionComponent<CopyIconProps> = (props) => {
     >
       <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
       <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
-    </StyledSvg>
+    </svg>
   );
 }

@@ -1,22 +1,14 @@
-import { styled } from "../stitches.config";
+import { css } from "../stitches.config";
+import { inputReset } from "./resets";
 
-export const Input = styled("input", {
-  appearance: "none",
+export const input = css({
+  ...inputReset,
   display: "flex",
-  boxSizing: "border-box",
-  border: "none",
   borderRadius: "4px",
-  fontSize: "inherit",
-  fontFamily: "inherit",
   padding: "8px 10px",
-  margin: 0,
   alignItems: "center",
   justifyContent: "center",
   background: "transparent",
-  "& > svg": {
-    width: "1em",
-    height: "1em",
-  },
   transition: "background-color 100ms ease",
   outline: "none",
   userSelect: "text",

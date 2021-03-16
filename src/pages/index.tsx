@@ -1,9 +1,10 @@
 import { useEffect, useState, VoidFunctionComponent } from 'react';
-import { Button } from '../components/Button';
 import { CopyIcon } from '../components/CopyIcon';
-import { Flex } from '../components/Flex';
-import { Input } from '../components/Input';
 import { useClipboard } from '../hooks/useClipboard';
+import { css } from '../stitches.config';
+import { button } from '../styles/button';
+import { flex } from '../styles/flex';
+import { input } from '../styles/input';
 type PageProps = {}
 const Page: VoidFunctionComponent<PageProps> = (props) => {
   const [copied, copy] = useClipboard();
@@ -19,23 +20,29 @@ const Page: VoidFunctionComponent<PageProps> = (props) => {
       });
   }, []);
   return (
-    <Flex css={{
-      height: "100vh",
-      alignItems: "center",
-      justifyContent: "center"
-    }}>
-      <Flex css={{
-        width: 320,
+    <div className={flex({
+      css: {
+        height: "100vh",
         alignItems: "center",
-      }}>
-        <Input
-          css={{
-            width: 0,
-            flex: "1 1",
-            fontWeight: 700,
-            fontSize: 20,
-            textOverflow: "ellipsis"
-          }}
+        justifyContent: "center"
+      }
+    })}>
+      <div className={flex({
+        css: {
+          width: 320,
+          alignItems: "center",
+        }
+      })}>
+        <input
+          className={input({
+            css: {
+              width: 0,
+              flex: "1 1",
+              fontWeight: 700,
+              fontSize: 20,
+              textOverflow: "ellipsis"
+            }
+          })}
           value={ip}
           onChange={() => { }}
           onFocus={(e) => {
@@ -43,23 +50,25 @@ const Page: VoidFunctionComponent<PageProps> = (props) => {
             target.select();
           }}
         />
-        <Button
-          css={{
-            width: 102.89,
-            justifyContent: "flex-start"
-          }}
-          color="accent"
+        <button
+          className={button({
+            css: {
+              width: 102.89,
+              justifyContent: "flex-start"
+            },
+            color: "accent"
+          })}
           onClick={() => {
             copy(ip)
           }}
         >
           <CopyIcon />
-          <Flex css={{ marginLeft: 8 }}>
+          <div className={flex({ css: { marginLeft: 8 } })}>
             {copied ? "복사됨" : "복사하기"}
-          </Flex>
-        </Button>
-      </Flex>
-    </Flex>
+          </div>
+        </button>
+      </div>
+    </div>
   );
 }
 
