@@ -31,7 +31,7 @@ const useClipboard = () => {
 type PageProps = {}
 const Page: VoidFunctionComponent<PageProps> = (props) => {
   const [copied, copy] = useClipboard();
-  const [ip, setIp] = useState("");
+  const [ip, setIp] = useState<string>("...");
   useEffect(() => {
     fetch("/api/ip")
       .then((res) => res.json())
