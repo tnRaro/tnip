@@ -56,7 +56,12 @@ const Page: VoidFunctionComponent<PageProps> = (props) => {
                 margin: "4px",
                 fontWeight: 700,
                 fontSize: 20,
-                textOverflow: "ellipsis"
+                textOverflow: "ellipsis",
+                when: {
+                  bp1: {
+                    textAlign: "center"
+                  }
+                }
               }
             })}
             value={ip ?? "..."}
