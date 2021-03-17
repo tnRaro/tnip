@@ -40,8 +40,9 @@ const Page: VoidFunctionComponent<PageProps> = (props) => {
         <div className={flex({
           css: {
             alignItems: "center",
+            margin: "-4px",
             when: {
-              "@media (max-width: 320px)": {
+              bp1: {
                 flexDirection: "column"
               }
             }
@@ -52,6 +53,7 @@ const Page: VoidFunctionComponent<PageProps> = (props) => {
               css: {
                 width: "100%",
                 flex: "1 1",
+                margin: "4px",
                 fontWeight: 700,
                 fontSize: 20,
                 textOverflow: "ellipsis"
@@ -67,8 +69,12 @@ const Page: VoidFunctionComponent<PageProps> = (props) => {
           <button
             className={button({
               css: {
-                width: 102.89,
-                justifyContent: "flex-start"
+                margin: "4px",
+                when: {
+                  bp1: {
+                    width: "90%"
+                  }
+                }
               },
               color: "accent"
             })}
@@ -79,7 +85,7 @@ const Page: VoidFunctionComponent<PageProps> = (props) => {
           >
             <CopyIcon />
             <div className={flex({ css: { marginLeft: 8 } })}>
-              {copied ? "복사됨" : "복사하기"}
+              {copied ? "복사완료" : "복사하기"}
             </div>
           </button>
         </div>

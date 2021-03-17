@@ -37,15 +37,20 @@ export const { css, styled, global } = createCss({
       md: "13px",
       lg: "20px"
     },
+  },
+  conditions: {
+    bp1: "@media (max-width: 320px)"
   }
 });
 
-global({
+export const globalStyles = global({
   "html,body,#__next": {
     padding: 0,
     margin: 0,
     fontFamily: "$sans",
     height: "100%",
+    overflow: "hidden",
+    fontSize: "16px",
   },
   "@font-face": [
     {
@@ -65,4 +70,4 @@ global({
       ]
     }
   ]
-})();
+});
