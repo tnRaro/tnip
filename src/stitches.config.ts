@@ -1,6 +1,6 @@
 import createCss from "@stitches/react";
 
-export const { css, styled, global } = createCss({
+export const { css, styled, global, getCssString } = createCss({
   theme: {
     colors: {
       gray100: "gainsboro",
@@ -51,6 +51,10 @@ export const globalStyles = global({
     height: "100%",
     overflow: "hidden",
     fontSize: "16px",
+  },
+  body: {
+    opacity: 1,
+    visibility: "visible",
   },
   "@font-face": [
     {

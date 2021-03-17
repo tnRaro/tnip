@@ -51,7 +51,7 @@ const Page: VoidFunctionComponent<PageProps> = (props) => {
           <input
             className={input({
               css: {
-                width: "100%",
+                width: "90%",
                 flex: "1 1",
                 margin: "4px",
                 fontWeight: 700,
