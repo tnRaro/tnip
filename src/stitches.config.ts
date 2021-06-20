@@ -1,6 +1,6 @@
-import createCss from "@stitches/react";
+import { createCss, StitchesCss } from "@stitches/react";
 
-export const { css, styled, global, getCssString } = createCss({
+export const stitchesConfig = createCss({
   theme: {
     colors: {
       gray100: "gainsboro",
@@ -28,20 +28,24 @@ export const { css, styled, global, getCssString } = createCss({
       accent800: "$blue800",
       accent900: "$blue900",
       
-      error: "crimson"
+      error: "firebrick"
     },
     fonts: {
-      sans: "-apple-system, BlinkMacSystemFont, Spoqa Han Sans Neo, sans-serif"
+      sans: "-apple-system, BlinkMacSystemFont, Montserrat, Noto Sans KR, sans-serif"
     },
     fontSizes: {
       md: "13px",
       lg: "20px"
     },
   },
-  conditions: {
-    bp1: "@media (max-width: 320px)"
+  media: {
+    bp1: "(max-width: 320px)"
   }
 });
+
+export const { css, styled, global, getCssString } = stitchesConfig;
+
+export type CSS = StitchesCss<typeof stitchesConfig>;
 
 export const globalStyles = global({
   "html,body,#__next": {
@@ -49,29 +53,11 @@ export const globalStyles = global({
     margin: 0,
     fontFamily: "$sans",
     height: "100%",
-    overflow: "hidden",
+    overflowX: "hidden",
     fontSize: "16px",
   },
   body: {
     opacity: 1,
     visibility: "visible",
   },
-  "@font-face": [
-    {
-      fontFamily: "Spoqa Han Sans Neo",
-      fontWeight: 400,
-      src: [
-        "url(/fonts/SpoqaHanSansNeo-Regular.woff2) format(\"woff2\")",
-        "url(/fonts/SpoqaHanSansNeo-Regular.woff) format(\"woff\")",
-      ]
-    },
-    {
-      fontFamily: "Spoqa Han Sans Neo",
-      fontWeight: 700,
-      src: [
-        "url(/fonts/SpoqaHanSansNeo-Bold.woff2) format(\"woff2\")",
-        "url(/fonts/SpoqaHanSansNeo-Bold.woff) format(\"woff\")",
-      ]
-    }
-  ]
 });

@@ -1,28 +1,22 @@
-import { useEffect, useMemo, useState, VoidFunctionComponent } from 'react';
+import { useAtom } from 'jotai';
+import { GetServerSideProps } from 'next';
+import { useEffect, useState, VoidFunctionComponent } from 'react';
+import { errorAtom } from '../atoms/errors';
 import { CopyIcon } from '../components/CopyIcon';
 import { useClipboard } from '../hooks/useClipboard';
 import { button } from '../styles/button';
 import { flex } from '../styles/flex';
 import { input } from '../styles/input';
-type PageProps = {}
+type PageProps = {
+  ip: string;
+}
 const Page: VoidFunctionComponent<PageProps> = (props) => {
-  const [copied, copy, error] = useClipboard();
-  const [ip, setIp] = useState<string>(null);
-  const [ipFetchError, setIpFetchError] = useState<any>(null);
-  const errors = useMemo(
-    () => [error, ipFetchError].filter(e => e),
-    [error, ipFetchError]
-  );
+  const [copied, copy] = useClipboard();
+  const [ip, setIp] = useState<string | null>(null);
+  const [error] = useAtom(errorAtom);
   useEffect(() => {
-    fetch("/api/ip")
-      .then((res) => res.json())
-      .then(({ ip }) => {
-        setIp(ip);
-      })
-      .catch((error) => {
-        setIpFetchError(error);
-      });
-  }, []);
+    setIp(props.ip);
+  }, [props.ip]);
   return (
     <div className={flex({
       css: {
@@ -41,10 +35,8 @@ const Page: VoidFunctionComponent<PageProps> = (props) => {
           css: {
             alignItems: "center",
             margin: "-4px",
-            when: {
-              bp1: {
-                flexDirection: "column"
-              }
+            "@bp1": {
+              flexDirection: "column"
             }
           },
         })}>
@@ -57,10 +49,8 @@ const Page: VoidFunctionComponent<PageProps> = (props) => {
                 fontWeight: 700,
                 fontSize: 20,
                 textOverflow: "ellipsis",
-                when: {
-                  bp1: {
-                    textAlign: "center"
-                  }
+                "@bp1": {
+                  textAlign: "center"
                 }
               }
             })}
@@ -75,16 +65,16 @@ const Page: VoidFunctionComponent<PageProps> = (props) => {
             className={button({
               css: {
                 margin: "4px",
-                when: {
-                  bp1: {
-                    width: "90%"
-                  }
+                "@bp1": {
+                  width: "90%"
                 }
               },
               color: "accent"
             })}
             onClick={() => {
-              copy(ip);
+              if (ip != null) {
+                copy(ip);
+              }
             }}
             disabled={copied || ip === null}
           >
@@ -94,23 +84,32 @@ const Page: VoidFunctionComponent<PageProps> = (props) => {
             </div>
           </button>
         </div>
-        <div className={flex({
-          css: {
-            color: "$error",
-            flexDirection: "column"
-          }
-        })}>
-          {errors.map((error) => {
-            return (
-              <div className={flex({})}>
-                {error?.toString()}
-              </div>
-            );
-          })}
-        </div>
+        {error != null &&
+          <div className={flex({
+            css: {
+              background: "$error",
+              color: "white",
+              flexDirection: "column",
+              padding: "1em",
+              borderRadius: "4px",
+            }
+          })}>
+            {String(error)}
+          </div>
+        }
       </div>
     </div>
   );
+}
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const ip = context.req.headers["x-forwarded-for"] ??
+    context.req.socket.remoteAddress;
+  return {
+    props: {
+      ip
+    }
+  };
 }
 
 export default Page;

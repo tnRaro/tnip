@@ -1,10 +1,10 @@
-import { InternalCSS } from "@stitches/core";
+import { CSS } from "../stitches.config";
 
 export const boxReset = {
   boxSizing: "border-box",
   padding: 0,
   margin: 0,
-} as InternalCSS;
+} as CSS;
 export const inputReset = {
   ...boxReset,
   appearance: "none",
@@ -19,4 +19,4 @@ export const inputReset = {
   alignItems: "center",
   justifyContent: "center",
   background: "white",
-} as InternalCSS;
+} as CSS;

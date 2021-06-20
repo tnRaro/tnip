@@ -1,8 +1,10 @@
+import { useUpdateAtom } from "jotai/utils";
 import { useCallback, useState } from "react";
+import { errorAtom } from "../atoms/errors";
 
 export const useClipboard = () => {
   const [copied, setCopied] = useState(false);
-  const [error, setError] = useState<any>(null);
+  const setError = useUpdateAtom(errorAtom);
   let timerId: NodeJS.Timeout;
   const copy = useCallback(async (text: string) => {
     clearTimeout(timerId);
@@ -14,5 +16,5 @@ export const useClipboard = () => {
       setError(e);
     }
   }, []);
-  return [copied, copy, error] as [boolean, (text: string) => Promise<void>, any];
+  return [copied, copy] as const;
 }
