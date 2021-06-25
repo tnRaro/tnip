@@ -7,6 +7,7 @@ import { useClipboard } from '../hooks/useClipboard';
 import { button } from '../styles/button';
 import { flex } from '../styles/flex';
 import { input } from '../styles/input';
+import { getIp } from '../utils/getIp';
 type PageProps = {
   ip: string;
 }
@@ -103,8 +104,7 @@ const Page: VoidFunctionComponent<PageProps> = (props) => {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const ip = context.req.headers["x-forwarded-for"] ??
-    context.req.socket.remoteAddress;
+  const ip = getIp(context.req);
   return {
     props: {
       ip
