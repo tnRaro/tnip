@@ -10,8 +10,8 @@ const handler: NextApiHandler = (req, res) => {
     res.setHeader("Content-Type", "application/json; charset=utf-8");
     return res.json({ ip });
   }
-  res.setHeader("Content-Type", "plain/text; charset=utf-8");
-  res.send(ip);
+  res.setHeader("Content-Type", "text/plain; charset=utf-8");
+  res.end(ip);
 }
 
 export default handler;
