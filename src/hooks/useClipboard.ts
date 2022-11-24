@@ -1,19 +1,17 @@
-import { useUpdateAtom } from "jotai/utils";
-import { useCallback, useState } from "react";
-import { errorAtom } from "../atoms/errors";
+import { useCallback, useRef, useState } from "react";
 
 export const useClipboard = () => {
   const [copied, setCopied] = useState(false);
-  const setError = useUpdateAtom(errorAtom);
-  let timerId: NodeJS.Timeout;
+  const timerIdRef = useRef<number>(0);
   const copy = useCallback(async (text: string) => {
-    clearTimeout(timerId);
+    clearTimeout(timerIdRef.current);
     try {
       await navigator.clipboard.writeText(text);
       setCopied(true);
-      timerId = setTimeout(() => { setCopied(false) }, 3000);
+      timerIdRef.current = setTimeout(() => { setCopied(false) }, 3000) as unknown as number;
     } catch (e) {
-      setError(e);
+      console.error(e);
+      clearTimeout(timerIdRef.current);
     }
   }, []);
   return [copied, copy] as const;
