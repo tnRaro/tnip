@@ -3,6 +3,7 @@ import { getIp } from "../../utils/getIp";
 
 const handler: NextApiHandler = (req, res) => {
   if (req.method !== "GET") {
+    res.setHeader("Allow", "GET");
     return res.status(405).end();
   }
   const ip = getIp(req);
